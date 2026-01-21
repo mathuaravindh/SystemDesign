@@ -5,6 +5,7 @@ import org.lldpractice.ratelimiter.config.RequestLimitConfig;
 import org.lldpractice.ratelimiter.enums.UnitType;
 import org.lldpractice.ratelimiter.service.RateLimiterService;
 import org.lldpractice.ratelimiter.strategy.fixedwindow.FixedWindowCounterStrategy;
+import org.lldpractice.ratelimiter.strategy.slidingwindow.SlidingWindowCounterStrategy;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,8 +18,12 @@ public class Main {
         Map<String, Limit> map = new HashMap<>();
         map.put("10ReqPerMinute", limit);
         RequestLimitConfig requestLimitConfig = new RequestLimitConfig(map);
+        //RateLimiterService rateLimiterService =
+                //new RateLimiterService(new FixedWindowCounterStrategy(requestLimitConfig.limitStore.get("10ReqPerMinute")));
+
         RateLimiterService rateLimiterService =
-                new RateLimiterService(new FixedWindowCounterStrategy(requestLimitConfig.limitStore.get("10ReqPerMinute")));
+                new RateLimiterService(new SlidingWindowCounterStrategy(requestLimitConfig.limitStore.get("10ReqPerMinute")));
+
 
         int count = 0;
         while(count < 15)

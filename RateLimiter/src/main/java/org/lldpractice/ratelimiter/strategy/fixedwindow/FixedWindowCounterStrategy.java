@@ -67,7 +67,7 @@ public class FixedWindowCounterStrategy implements RateLimiterStrategy {
                 return counter;
             }*/
 
-            // Limit exceeded → keep counter unchanged
+            // Limit exceeded
             counter.increment();
             return counter;
 
